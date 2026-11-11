@@ -1,0 +1,1028 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job-Hunter | Startup Job Search</title>
+
+<style>
+:root {
+  --navy: #101a2d;
+  --navy2: #17243a;
+  --blue: #246bfe;
+  --purple: #6845e8;
+  --bg: #f5f7fc;
+  --white: #ffffff;
+  --muted: #758198;
+  --border: #e7eaf1;
+  --green: #159b68;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: #172238;
+}
+
+button, input, select { font: inherit; }
+
+button { cursor: pointer; }
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 245px;
+  background: var(--navy);
+  color: white;
+  padding: 25px 17px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.logo {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  font-size: 21px;
+  font-weight: 800;
+  padding: 5px 8px 35px;
+}
+
+.logo-icon { font-size: 30px; }
+
+.logo small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #9caac1;
+  margin-top: 3px;
+}
+
+.nav {
+  display: grid;
+  gap: 9px;
+}
+
+.nav button {
+  background: transparent;
+  color: #cbd5e5;
+  border: 0;
+  border-radius: 9px;
+  padding: 13px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.nav button:hover,
+.nav button.active {
+  background: #1755c5;
+  color: white;
+}
+
+.sidebar-promo {
+  margin-top: auto;
+  padding: 20px 15px;
+  background: linear-gradient(145deg,#182f55,#101a2d);
+  border: 1px solid #294b82;
+  border-radius: 14px;
+}
+
+.sidebar-promo .rocket { font-size: 40px; }
+.sidebar-promo h3 { margin-bottom: 5px; }
+.sidebar-promo p { font-size: 12px; color: #cbd5e5; }
+
+.sidebar-promo button {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* MAIN */
+
+.main {
+  margin-left: 245px;
+  width: calc(100% - 245px);
+}
+
+.hero {
+  background:
+    radial-gradient(ellipse at 80% 20%, #263c62, transparent 50%),
+    linear-gradient(110deg,#101a2d,#172943);
+  color: white;
+  padding: 35px 5% 28px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  color: #cbd5e5;
+  margin-bottom: 28px;
+  font-size: 13px;
+}
+
+.hero h1 {
+  font-size: clamp(30px,4vw,49px);
+  line-height: 1.12;
+  margin: 0;
+  max-width: 700px;
+}
+
+.hero h1 span { color: #4292ff; }
+
+.hero-description {
+  color: #c4d0e2;
+  margin: 15px 0 23px;
+  line-height: 1.6;
+}
+
+.search-box {
+  background: white;
+  padding: 7px;
+  border-radius: 13px;
+  display: flex;
+  gap: 8px;
+  max-width: 850px;
+  box-shadow: 0 8px 35px #0004;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 100px;
+  border: 0;
+  outline: none;
+  padding: 12px;
+  color: #182238;
+}
+
+.search-box select {
+  border: 0;
+  outline: none;
+  color: #344158;
+  max-width: 145px;
+}
+
+.primary-btn {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 20px;
+  font-weight: 700;
+}
+
+.primary-btn:hover { background: #1554d5; }
+
+.quick-filters {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.quick-filters button {
+  background: #ffffff19;
+  color: white;
+  border: 1px solid #ffffff20;
+  border-radius: 30px;
+  padding: 9px 15px;
+  font-size: 12px;
+}
+
+.quick-filters button:hover { background: #ffffff35; }
+
+/* CONTENT */
+
+.content {
+  padding: 24px;
+  max-width: 1650px;
+  margin: auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.stat-icon {
+  font-size: 24px;
+  background: #eef3ff;
+  padding: 11px;
+  border-radius: 10px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 22px;
+}
+
+.stat small { color: var(--muted); }
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 235px minmax(0,1fr) 230px;
+  gap: 14px;
+  align-items: start;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 17px;
+}
+
+.panel h3 { margin: 0 0 18px; }
+
+.filter-group { margin-bottom: 18px; }
+
+.filter-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline-color: var(--blue);
+  background: white;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.check input { width: auto; }
+
+.reset {
+  background: none;
+  color: var(--blue);
+  border: 0;
+  font-size: 12px;
+}
+
+/* JOB LIST */
+
+.job-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.tabs {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  border: 1px solid var(--border);
+  background: white;
+  padding: 9px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tabs button.active {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: #f0f5ff;
+}
+
+.sort {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  background: white;
+}
+
+.job-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 17px;
+  margin-bottom: 12px;
+  transition: .2s;
+}
+
+.job-card:hover {
+  border-color: #a9c5ff;
+  box-shadow: 0 5px 20px #1d3e7610;
+}
+
+.job-top {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.company-logo {
+  width: 48px;
+  height: 48px;
+  background: #eef2ff;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 20px;
+  flex-shrink: 0;
+  color: #315bd3;
+}
+
+.job-info { flex: 1; }
+
+.job-info h3 {
+  margin: 1px 0 6px;
+  font-size: 16px;
+}
+
+.company {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.job-description {
+  color: #68758c;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 12px 0;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 5px 9px;
+  background: #eff2ff;
+  color: #405a9b;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+.job-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.apply-btn {
+  background: var(--navy);
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.save-btn, .track-btn {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 12px;
+}
+
+.save-btn.saved {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.empty {
+  padding: 40px 10px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* RIGHT PANEL */
+
+.alert-panel {
+  background: #f0edff;
+  border: 1px solid #e0d9ff;
+  border-radius: 13px;
+  padding: 17px;
+  margin-bottom: 13px;
+}
+
+.alert-panel .rocket { font-size: 30px; }
+.alert-panel h3 { margin: 8px 0; }
+.alert-panel p { font-size: 12px; color: #59637b; line-height: 1.5; }
+
+.alert-panel button {
+  background: var(--purple);
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px;
+  width: 100%;
+}
+
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.source-list li {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.source-list a {
+  color: #34445e;
+  text-decoration: none;
+}
+
+.source-list a:hover { color: var(--blue); }
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+  font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px) {
+  .dashboard {
+    grid-template-columns: 220px minmax(0,1fr);
+  }
+  .right-panel { grid-column: 1 / -1; }
+}
+
+@media(max-width:750px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    padding: 12px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .logo { padding: 0; font-size: 17px; }
+  .logo-icon { font-size: 23px; }
+  .logo small, .sidebar-promo { display: none; }
+  .nav {
+    display: flex;
+    overflow-x: auto;
+    margin-left: auto;
+  }
+  .nav button { padding: 10px; white-space: nowrap; }
+  .main { margin-left: 0; width: 100%; }
+  .app { display: block; }
+  .hero { padding: 27px 18px; }
+  .content { padding: 15px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .dashboard { grid-template-columns: 1fr; }
+  .search-box { flex-wrap: wrap; }
+  .search-box input { flex-basis: 100%; }
+  .search-box select { flex: 1; }
+}
+
+@media(max-width:420px) {
+  .nav button { font-size: 11px; padding: 9px; }
+  .stat { padding: 11px; }
+  .stat strong { font-size: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">🎯</span>
+    <div>Job-Hunter<small>Find. Apply. Grow.</small></div>
+  </div>
+
+  <nav class="nav">
+    <button class="active" onclick="showView('home',this)">⌂ Home</button>
+    <button onclick="showView('saved',this)">♡ Saved Jobs</button>
+    <button onclick="showView('applied',this)">✓ Applied Jobs</button>
+    <button onclick="showView('alerts',this)">♧ Job Alerts</button>
+  </nav>
+
+  <div class="sidebar-promo">
+    <div class="rocket">🚀</div>
+    <h3>Dream Big.<br>Get Hired.</h3>
+    <p>Your next startup opportunity is waiting.</p>
+    <button onclick="showView('alerts')">＋ Set Job Alert</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <section class="hero">
+    <div class="topbar">
+      <span>🔔 Notifications</span>
+      <span>👤 Personal Dashboard</span>
+    </div>
+
+    <h1>Find your next<br><span>startup</span> opportunity.</h1>
+
+    <p class="hero-description">
+      Search across multiple hiring platforms — LinkedIn, Indeed,
+      Wellfound, Y Combinator and more — all in one place.
+    </p>
+
+    <div class="search-box">
+      <input id="keyword" placeholder="Job title, skill or company...">
+      <select id="searchLocation">
+        <option value="">Worldwide</option>
+        <option value="India">India</option>
+        <option value="USA">USA</option>
+        <option value="Remote">Remote</option>
+      </select>
+      <button class="primary-btn" onclick="filterJobs()">⚡ Search Jobs</button>
+    </div>
+
+    <div class="quick-filters">
+      <button onclick="quickFilter('Remote')">💻 Remote</button>
+      <button onclick="quickFilter('Startup')">🚀 Startup</button>
+      <button onclick="quickFilter('Entry Level')">👤 Entry Level</button>
+      <button onclick="quickFilter('Product')">📦 Product</button>
+      <button onclick="quickFilter('Engineering')">⌘ Engineering</button>
+      <button onclick="quickFilter('Design')">🎨 Design</button>
+    </div>
+  </section>
+
+  <section class="content">
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-icon">💼</div>
+        <div><strong id="totalCount">0</strong><small>Total Jobs</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">⭐</div>
+        <div><strong id="savedCount">0</strong><small>Saved Jobs</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🏢</div>
+        <div><strong id="companyCount">0</strong><small>Companies</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">✓</div>
+        <div><strong id="appliedCount">0</strong><small>Applied Jobs</small></div>
+      </div>
+    </div>
+
+    <div class="dashboard">
+
+      <!-- FILTERS -->
+      <aside class="panel">
+        <div style="display:flex;justify-content:space-between">
+          <h3>Filters</h3>
+          <button class="reset" onclick="resetFilters()">Reset All</button>
+        </div>
+
+        <div class="filter-group">
+          <label>🌍 Location</label>
+          <select id="locationFilter" onchange="renderJobs()">
+            <option value="">Any Location</option>
+            <option>India</option>
+            <option>USA</option>
+            <option>Remote</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>💼 Job Type</label>
+          <label class="check"><input type="checkbox" value="Full-time" class="typeFilter" onchange="renderJobs()"> Full-time</label>
+          <label class="check"><input type="checkbox" value="Part-time" class="typeFilter" onchange="renderJobs()"> Part-time</label>
+          <label class="check"><input type="checkbox" value="Internship" class="typeFilter" onchange="renderJobs()"> Internship</label>
+          <label class="check"><input type="checkbox" value="Contract" class="typeFilter" onchange="renderJobs()"> Contract</label>
+        </div>
+
+        <div class="filter-group">
+          <label>📊 Experience Level</label>
+          <select id="experienceFilter" onchange="renderJobs()">
+            <option value="">Any Experience</option>
+            <option>Entry Level</option>
+            <option>Internship</option>
+            <option>Mid Level</option>
+            <option>Senior Level</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>🏷️ Job Source</label>
+          <select id="sourceFilter" onchange="renderJobs()">
+            <option value="">All Sources</option>
+            <option>Y Combinator</option>
+            <option>Wellfound</option>
+            <option>Greenhouse</option>
+            <option>Lever</option>
+            <option>Ashby</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" style="width:100%" onclick="renderJobs()">Apply Filters</button>
+      </aside>
+
+      <!-- JOB RESULTS -->
+      <section>
+        <div class="job-toolbar">
+          <div class="tabs">
+            <button class="active" onclick="setTab('all',this)">All Jobs</button>
+            <button onclick="setTab('new',this)">New Today</button>
+            <button onclick="setTab('remote',this)">Remote</button>
+            <button onclick="setTab('startup',this)">Startups</button>
+          </div>
+
+          <select class="sort" id="sort" onchange="renderJobs()">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+
+        <div id="jobList"></div>
+      </section>
+
+      <!-- RIGHT PANEL -->
+      <aside class="right-panel">
+
+        <div class="alert-panel">
+          <div class="rocket">🚀</div>
+          <h3>Get Notified About New Jobs</h3>
+          <p>Keep track of new startup opportunities. Create a search alert.</p>
+          <button onclick="showView('alerts')">♧ Create Job Alert</button>
+        </div>
+
+        <div class="panel">
+          <h3>Top Job Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://www.linkedin.com/jobs/" target="_blank">LinkedIn ↗</a></li>
+            <li><a href="https://www.indeed.com/" target="_blank">Indeed ↗</a></li>
+            <li><a href="https://hiring.cafe/" target="_blank">HiringCafe ↗</a></li>
+            <li><a href="https://wellfound.com/jobs" target="_blank">Wellfound ↗</a></li>
+            <li><a href="https://www.ycombinator.com/jobs" target="_blank">Y Combinator ↗</a></li>
+            <li><a href="https://www.greenhouse.com/" target="_blank">Greenhouse ↗</a></li>
+            <li><a href="https://jobs.lever.co/" target="_blank">Lever ↗</a></li>
+            <li><a href="https://jobs.ashbyhq.com/" target="_blank">Ashby ↗</a></li>
+          </ul>
+        </div>
+
+        <div class="panel" style="margin-top:13px">
+          <h3>About Job-Hunter</h3>
+          <p style="font-size:12px;color:#758198;line-height:1.6">
+            Your personal startup job search workspace.
+            Find opportunities, save jobs and track applications.
+          </p>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer>
+      Job-Hunter © 2026 · Find. Apply. Grow.
+    </footer>
+
+  </section>
+</main>
+</div>
+
+<script>
+
+/* DEMO DATA: Replace with verified job feeds later */
+
+const jobs = [
+  {
+    id:1,
+    role:"Software Engineer",
+    company:"Example Technologies",
+    logo:"E",
+    location:"Remote",
+    type:"Full-time",
+    experience:"Mid Level",
+    source:"Greenhouse",
+    category:"Engineering",
+    tags:["JavaScript","React","Node.js"],
+    description:"Help build modern software products for growing businesses.",
+    date:"2026-11-11",
+    link:"https://www.linkedin.com/jobs/"
+  },
+  {
+    id:2,
+    role:"Business Analyst",
+    company:"Startup Labs",
+    logo:"S",
+    location:"India",
+    type:"Full-time",
+    experience:"Entry Level",
+    source:"Y Combinator",
+    category:"Business",
+    tags:["Excel","SQL","Analytics"],
+    description:"Work with product and operations teams to understand business performance.",
+    date:"2026-11-11",
+    link:"https://www.ycombinator.com/jobs"
+  },
+  {
+    id:3,
+    role:"Product Manager",
+    company:"Future Ventures",
+    logo:"F",
+    location:"USA",
+    type:"Full-time",
+    experience:"Mid Level",
+    source:"Wellfound",
+    category:"Product",
+    tags:["Product","Strategy","Research"],
+    description:"Help develop product strategy and coordinate product launches.",
+    date:"2026-11-10",
+    link:"https://wellfound.com/jobs"
+  },
+  {
+    id:4,
+    role:"Data Analyst Intern",
+    company:"NextGen AI",
+    logo:"N",
+    location:"Remote",
+    type:"Internship",
+    experience:"Internship",
+    source:"Lever",
+    category:"Analytics",
+    tags:["Python","Excel","SQL"],
+    description:"Analyse data and create reports to support business decisions.",
+    date:"2026-11-10",
+    link:"https://jobs.lever.co/"
+  },
+  {
+    id:5,
+    role:"UI/UX Designer",
+    company:"Creative Startup",
+    logo:"C",
+    location:"India",
+    type:"Full-time",
+    experience:"Entry Level",
+    source:"Ashby",
+    category:"Design",
+    tags:["Figma","UI","UX"],
+    description:"Design clear and useful user experiences for digital products.",
+    date:"2026-11-09",
+    link:"https://jobs.ashbyhq.com/"
+  }
+];
+
+let saved = JSON.parse(localStorage.getItem("jh_saved") || "[]");
+let applied = JSON.parse(localStorage.getItem("jh_applied") || "[]");
+let activeTab = "all";
+let currentView = "home";
+
+function updateStats() {
+  document.getElementById("totalCount").textContent = jobs.length;
+  document.getElementById("savedCount").textContent = saved.length;
+  document.getElementById("companyCount").textContent =
+    new Set(jobs.map(j => j.company)).size;
+  document.getElementById("appliedCount").textContent = applied.length;
+}
+
+function renderJobs() {
+  const query = document.getElementById("keyword").value.toLowerCase();
+  const searchLocation = document.getElementById("searchLocation").value;
+  const location = document.getElementById("locationFilter").value;
+  const experience = document.getElementById("experienceFilter").value;
+  const source = document.getElementById("sourceFilter").value;
+  const selectedTypes = [...document.querySelectorAll(".typeFilter:checked")]
+    .map(el => el.value);
+
+  let results = jobs.filter(job => {
+    const text = [
+      job.role, job.company, job.tags.join(" "), job.category
+    ].join(" ").toLowerCase();
+
+    if (query && !text.includes(query)) return false;
+    if (location && job.location !== location) return false;
+    if (searchLocation && searchLocation !== "Worldwide" &&
+        job.location !== searchLocation) return false;
+    if (experience && job.experience !== experience) return false;
+    if (source && job.source !== source) return false;
+    if (selectedTypes.length && !selectedTypes.includes(job.type)) return false;
+
+    if (activeTab === "new" && job.date !== "2026-11-11") return false;
+    if (activeTab === "remote" && job.location !== "Remote") return false;
+    if (activeTab === "startup" && !job.company) return false;
+
+    if (currentView === "saved" && !saved.includes(job.id)) return false;
+    if (currentView === "applied" && !applied.includes(job.id)) return false;
+
+    return true;
+  });
+
+  if (document.getElementById("sort").value === "oldest") {
+    results.reverse();
+  }
+
+  const list = document.getElementById("jobList");
+
+  if (!results.length) {
+    list.innerHTML = '<div class="panel empty">No matching jobs found. Try changing your filters.</div>';
+    return;
+  }
+
+  list.innerHTML = results.map(job => `
+    <article class="job-card">
+      <div class="job-top">
+        <div class="company-logo">${job.logo}</div>
+        <div class="job-info">
+          <h3>${job.role}</h3>
+          <div class="company">${job.company}</div>
+          <div class="job-meta">
+            <span>📍 ${job.location}</span>
+            <span>💼 ${job.type}</span>
+            <span>◷ ${job.experience}</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="job-description">${job.description}</p>
+
+      <div class="tags">
+        ${job.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+      </div>
+
+      <div class="job-meta">
+        <span>Source: ${job.source}</span>
+        <span>Posted: ${job.date}</span>
+      </div>
+
+      <div class="job-actions">
+        <button class="save-btn ${saved.includes(job.id) ? "saved" : ""}"
+          onclick="toggleSave(${job.id})">
+          ${saved.includes(job.id) ? "♥ Saved" : "♡ Save"}
+        </button>
+
+        <button class="track-btn"
+          onclick="toggleApplied(${job.id})">
+          ${applied.includes(job.id) ? "✓ Applied" : "＋ Mark Applied"}
+        </button>
+
+        <a class="apply-btn" href="${job.link}" target="_blank" rel="noopener">
+          Visit source ↗
+        </a>
+      </div>
+    </article>
+  `).join("");
+}
+
+function toggleSave(id) {
+  saved = saved.includes(id)
+    ? saved.filter(x => x !== id)
+    : [...saved, id];
+
+  localStorage.setItem("jh_saved", JSON.stringify(saved));
+  updateStats();
+  renderJobs();
+}
+
+function toggleApplied(id) {
+  applied = applied.includes(id)
+    ? applied.filter(x => x !== id)
+    : [...applied, id];
+
+  localStorage.setItem("jh_applied", JSON.stringify(applied));
+  updateStats();
+  renderJobs();
+}
+
+function filterJobs() {
+  currentView = "home";
+  activeTab = "all";
+  renderJobs();
+}
+
+function quickFilter(value) {
+  document.getElementById("keyword").value = "";
+  document.getElementById("locationFilter").value = "";
+  document.getElementById("experienceFilter").value = "";
+  document.getElementById("sourceFilter").value = "";
+
+  if (value === "Remote") {
+    document.getElementById("locationFilter").value = "Remote";
+  } else if (value === "Entry Level") {
+    document.getElementById("experienceFilter").value = "Entry Level";
+  } else {
+    document.getElementById("keyword").value = value;
+  }
+
+  currentView = "home";
+  activeTab = "all";
+  renderJobs();
+}
+
+function setTab(tab, button) {
+  activeTab = tab;
+  currentView = "home";
+
+  document.querySelectorAll(".tabs button").forEach(b =>
+    b.classList.remove("active")
+  );
+
+  button.classList.add("active");
+  renderJobs();
+}
+
+function resetFilters() {
+  document.getElementById("keyword").value = "";
+  document.getElementById("searchLocation").value = "";
+  document.getElementById("locationFilter").value = "";
+  document.getElementById("experienceFilter").value = "";
+  document.getElementById("sourceFilter").value = "";
+
+  document.querySelectorAll(".typeFilter").forEach(el => el.checked = false);
+
+  activeTab = "all";
+  currentView = "home";
+  renderJobs();
+}
+
+function showView(view, button) {
+  currentView = view;
+  activeTab = "all";
+
+  document.querySelectorAll(".nav button").forEach(b =>
+    b.classList.remove("active")
+  );
+
+  if (button) button.classList.add("active");
+
+  if (view === "alerts") {
+    alert("Job alerts will be available after we connect the job collection system.");
+    currentView = "home";
+    renderJobs();
+    return;
+  }
+
+  renderJobs();
+}
+
+document.getElementById("keyword").addEventListener("keydown", e => {
+  if (e.key === "Enter") filterJobs();
+});
+
+updateStats();
+renderJobs();
+
+</script>
+</body>
+</html>
